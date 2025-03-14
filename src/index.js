@@ -16,8 +16,8 @@ connectDB()
         })
 
     })
-    .catch((err) => {
-        console.log('Server Error: ' + err);
+    .catch((error) => {
+        console.log('Server Error: ' + error);
     })
 
 
