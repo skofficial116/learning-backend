@@ -6,7 +6,6 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 import jwt from "jsonwebtoken";
 
 
-
 const generateAccessAndRefreshToken = async (userId) => {
     try {
         const user = await User.findById(userId);
@@ -23,82 +22,57 @@ const generateAccessAndRefreshToken = async (userId) => {
 }
 
 const registerUser = asyncHandler(async (req, res) => {
-    //getting data from the data
-    const { email, username, password, fullName } = req.body
+    const { email, username, password, fullName } = req.body;
 
+    // Validation for required fields
+    if (!email) throw new ApiError(400, "Email is required!");
+    if (!username) throw new ApiError(400, "Username is required!");
+    if (!password) throw new ApiError(400, "Password is required!");
+    if (!fullName) throw new ApiError(400, "Full Name is required!");
 
-    //validation non-empty
-    if (email === '') {
-        throw new ApiError(400, "Email is required!!")
-    } else if (username === '') {
-        throw new ApiError(400, "Username is required!!")
-    } else if (password === '') {
-        throw new ApiError(400, "Password is required!!")
-    } else if (fullName === '') {
-        throw new ApiError(400, "Full Name is required!!")
+    // Check for existing user
+    const existingUser = await User.findOne({ $or: [{ email }, { username }] });
+    if (existingUser) {
+        throw new ApiError(409, "User with the given email or username already exists!");
     }
 
-
-    // checking existing username or email
-    const existedUser = await User.findOne({ username })
-    if (existedUser) {
-        throw new ApiError(409, "User with the given username already exists!!")
-    }
-    const existedEmail = await User.findOne({ email })
-    if (existedEmail) {
-        throw new ApiError(409, "User with the given email already exists!!")
-    }
-    const avatarLocalFilePath = req.files?.avatar[0]?.path;
-    console.log(avatarLocalFilePath);
-
-    // const coverLocalFilePath = req.files?.coverImage[0]?.path;
-    let coverLocalFilePath;
-    if (req.files && Array.isArray(req.files.coverImage) && req.files.coverImage[0]) {
-        coverLocalFilePath = req.files.coverImage[0];
-    }
-
+    // Handling file uploads
+    const avatarLocalFilePath = req.files?.avatar?.[0]?.path;
     if (!avatarLocalFilePath) {
-        throw new ApiError(400, "Avatar file is required!!")
+        throw new ApiError(400, "Avatar file is required!");
     }
-    // console.log('');
-    // console.log('');
-    // console.log('');
-    // console.log('');
-    // console.log('');
-    // console.log('');
-    // console.log(avatarLocalFilePath.path);
-    // console.log('');
-    // console.log('');
-    // console.log('');
-    // console.log('');
-    // console.log('');
 
+    const coverLocalFilePath = req.files?.coverImage?.[0]?.path || null;
+
+    // Upload to Cloudinary
     const avatar = await uploadOnCloudinary(avatarLocalFilePath);
-    const cover = await uploadOnCloudinary(coverLocalFilePath);
+    const cover = coverLocalFilePath ? await uploadOnCloudinary(coverLocalFilePath) : null;
+
     if (!avatar) {
-        throw new ApiError(400, "Avatar file is required!!");
+        throw new ApiError(500, "Avatar upload failed!");
     }
 
+    // Create user
     const user = await User.create({
+        username: username.toLowerCase(),
         fullName,
         avatar: avatar.url,
-        coverImage: cover?.path || "",
-        username: username.toLowerCase(),
+        coverImage: cover?.url || "",
         password,
         email
-    })
+    });
+
+    // Remove sensitive data before sending response
     const createdUser = await User.findById(user._id).select("-password -refreshToken");
 
     if (!createdUser) {
-        throw new ApiError(500, "Something went wrong while registering the user!!")
+        throw new ApiError(500, "Something went wrong while registering the user!");
     }
 
     return res.status(201).json(
-        new ApiResponse(200, createdUser, "User Registered Successfully!!")
-    )
-
-}
-)
+        new ApiResponse(201, createdUser, "User Registered Successfully!")
+    );
+});
 
 const loginUser = asyncHandler(async (req, res) => {
     //ask email/username and pasword

@@ -1,20 +1,15 @@
 import mongoose from 'mongoose';
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
+import { v4 as uuidv4 } from 'uuid';
 
 const userSchema = new mongoose.Schema({
     id: {
         type: String,
-        // required: true,
         unique: true,
-        lowercase: true,
-        trim: true,
-        index: true
+        default: uuidv4
     },
-    // watchHistory: [{
-    //     type: Schema.Types.ObjectId,
-    //     ref: "Video"
-    // }],
+
     username: {
         type: String,
         required: true,
@@ -34,7 +29,7 @@ const userSchema = new mongoose.Schema({
         index: true
     },
     avatar: {
-        type: String, //cloudinary url
+        type: String, // Cloudinary URL
         required: true
     },
     coverImage: {
@@ -49,17 +44,19 @@ const userSchema = new mongoose.Schema({
     }
 }, { timestamps: true });
 
+// Hash password before saving
 userSchema.pre("save", async function (next) {
     if (!this.isModified("password")) return next();
-
     this.password = await bcrypt.hash(this.password, 10);
     next();
-})
+});
 
+// Compare passwords
 userSchema.methods.isPasswordCorrect = async function (password) {
-    return await bcrypt.compare(password, this.password)
-}
+    return await bcrypt.compare(password, this.password);
+};
 
+// Generate access token
 userSchema.methods.generateAccessToken = function () {
     return jwt.sign({
         _id: this._id,
@@ -68,15 +65,16 @@ userSchema.methods.generateAccessToken = function () {
         email: this.email
     }, process.env.ACCESS_TOKEN_KEY, {
         expiresIn: process.env.ACCESS_TOKEN_EXPIRY
-    })
-}
+    });
+};
 
+// Generate refresh token
 userSchema.methods.generateRefreshToken = function () {
     return jwt.sign({
         _id: this._id
     }, process.env.REFRESH_TOKEN_KEY, {
         expiresIn: process.env.REFRESH_TOKEN_EXPIRY
-    })
-}
+    });
+};
 
 export const User = mongoose.model("User", userSchema);
