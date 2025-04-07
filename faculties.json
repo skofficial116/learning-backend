@@ -1,0 +1,85 @@
+{
+  "faculties ": {
+    "B.Tech": [
+      {
+        "id": 3,
+        "name": "Dr. Sushil Chandra Dimri",
+        "title": "Professor",
+        "research_area": [
+          "Algorithms, Machine Learning, Data Analytic, .Resource optimization"
+        ],
+        "education": [
+          {
+            "degree": "PhD. ",
+            "field": "null",
+            "university": "Kumaun University",
+            "location": "Nainital, Uttarakhand"
+          },
+          {
+            "degree": "M.Tech.",
+            "field": "null",
+            "university": " I.I.T. ",
+            "location": " Dhanbad"
+          }
+        ],
+        "awards": [
+          {
+            "award": "GEU Best faculty award for year 2006.",
+            "rank": "null",
+            "stream": "null"
+          }
+        ],
+        "profesional_membership": ["CSI Membership"],
+        "biography": "Dr. Sushil Chandra Dimri has the 4 year Industry experience and his teaching experience is more than 23 years. He authored 10 books on Mathematics and Computer Science for UG and PG students and guided many projects at UG and PG level.Dr. Dimri guided 5 PhD's and 4-PhD Scholars are working under his supervision. His areas of interest are Machine learning techniques, Designing algorithms and Resource Optimization. He is editor, reviewer for many reputed journals, He has more than 80 research publications in national and international journals, along with 5 published patents."
+      },
+
+      {
+        "id": 2,
+        "name": "Dr. Durgaprasad Gangodkar",
+        "title": "Professor",
+        "research_area": [
+          "Cloud and High Performance Computing, Data and Network Security, Computer vision and Video Analytics, Machine Learning"
+        ],
+        "education": [
+          {
+            "degree": "Ph.D.",
+            "field": "CSE",
+            "university": "Indian Institute of Technology",
+            "location": "Roorkee, India"
+          },
+          {
+            "degree": "M.Tech.",
+            "field": "CSE",
+            "university": "Distinction from Visvesvaraya Technological University",
+            "location": "Karnataka, India"
+          },
+          {
+            "degree": "B.Tech",
+            "field": "CSE",
+            "university": "Distinction from Visvesvaraya Technological University",
+            "location": "Karnataka, India"
+          }
+        ],
+        "awards": [
+          {
+            "award": "Recipient of Distinguished Employee Award at Siemens Ltd.,",
+            "rank": "null",
+            "stream": "null"
+          },
+          {
+            "award": "Recipient of IITR-Microsoft Grant for excellent research work during Ph. D.",
+            "rank": "null",
+            "stream": "null"
+          }
+        ],
+        "professional_membership": [
+          "Member IEEE, USA",
+          "Member ACM, USA",
+          "Member Computer Society of India (CSI), India",
+          "Life member Indian Society for Technical Education (ISTE), India"
+        ],
+        "biography": "Prof. Gangodkar has a professional experience of more than 25 years. He worked with a renowned German Multinational Siemens Ltd., for around 6 years. Where he was involved  in developing software solutions using Real-time operating systems for various industries in  ndia and abroad. His excellence was rewarded with Distinguished Employee Award at Siemens Ltd. Over the past 20 years, he is involved in research, teaching various courses at UG and PG level; guided research scholars, projects at UG and PG level. He has contributed many novel techniques in varied fields of research resulting in patents and  ublications in reputed international conferences and high impact factor journals including IEEE  ransactions, Springer, Elsevier, Taylor and Francis and so on. Prof. Gangodkar has been instrumental in developing various computing and research facilities including a Private Cloud computing facility, Hadoop Cluster for storage and analysis of Big Data, MPI Cluster for distributed computing, Multicore computing facility and so on. Prof. Gangodkar has been associated with Graphic Era for the past 18 years in various capacities, including Member Board of Management, Member Academic council, Dean Engineering, Dean Research, Head Dept. of CSE, University Coordinator NAAC, NBA and so on. Currently he is working as Dean Academics, Dean International Affairs and Professor at the Department of Computer Science and Engineering, Graphic Era Deemed to be University"
+      }
+    ]
+  }
+}

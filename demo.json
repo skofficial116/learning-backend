@@ -1,0 +1,26 @@
+{
+  "Course": {
+    "Semester": {
+      "Section": {
+        "Location": "jkaldj",
+        "timetable": {
+          "Monday": [
+            { "Timing": "...", "Course Code": "tbd...", "Location": "...." },
+            { "Timing": "...", "Course Code": "tbd...", "Location": "...." }
+            // so on for the respective timings
+          ],
+          "Tuesday": [
+            { "Timing": "...", "Course Code": "tbd...", "Location": "...." },
+            { "Timing": "...", "Course Code": "tbd...", "Location": "...." }
+          ]
+          // so on upto saturday
+        },
+        "faculty": {
+          "course code": { "subject": ".....", "faculty": "....." }
+          // and so on for the respective courses
+        },
+        "coordinator": { "name": "....", "contact": "...." }
+      }
+    }
+  }
+}

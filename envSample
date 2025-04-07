@@ -1,0 +1,12 @@
+PORT=8000
+MONGODB_URI=mongodb+srv://sachinAdmin:skofficial116@college4sem.t10io.mongodb.net/?retryWrites=true&w=majority&appName=college4sem
+CORS_ORIGIN=*
+ACCESS_TOKEN_SECRET=chai-aur-code
+ACCESS_TOKEN_EXPIRY=1d
+REFRESH_TOKEN_SECRET=chai-aur-backend
+REFRESH_TOKEN_EXPIRY=10d
+
+
+CLOUDINARY_CLOUD_NAME=dc5gj9aho
+CLOUDINARY_API_KEY=458412867213945
+CLOUDINARY_API_SECRET=R42hM9V0kgwGR7rj78Bm8Ljs4mg

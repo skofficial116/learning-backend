@@ -1,0 +1,44 @@
+{
+    "BCA": {
+      "IV": {
+        "A": {
+          "location": "LT4",
+          "timetable": {
+            "Monday": [
+              {"time": "8:00 AM - 8:55 AM", "course": "TBC404", "location": "LT4"},
+              {"time": "8:55 AM - 9:50 AM", "course": "TBC406", "location": "LT4"},
+              {"time": "10:10 AM - 11:05 AM", "course": "TBC405(C)", "location": "LT3"},
+              {"time": "11:05 AM - 12:00 PM", "course": "TBC402(T)", "location": "LT4"}
+            ],
+            "Tuesday": [
+              {"time": "8:00 AM - 8:55 AM", "course": "TBC403", "location": "LT4"},
+              {"time": "8:55 AM - 9:50 AM", "course": "TBC401", "location": "LT4"},
+              {"time": "10:10 AM - 11:05 AM", "course": "TBC404", "location": "LT3"}
+            ],
+            "Wednesday": [
+              {"time": "8:00 AM - 8:55 AM", "course": "TBC405(C)", "location": "LT4"},
+              {"time": "8:55 AM - 9:50 AM", "course": "TBC401", "location": "LT4"},
+              {"time": "10:10 AM - 11:05 AM", "course": "TBC404", "location": "LT4"},
+              {"time": "11:05 AM - 12:00 PM", "course": "TBC402", "location": "LT4"}
+            ],
+            "Thursday": [
+              {"time": "8:00 AM - 8:55 AM", "course": "TBC403", "location": "LT4"},
+              {"time": "8:55 AM - 9:50 AM", "course": "TBC405(C)", "location": "LT3"},
+              {"time": "10:10 AM - 11:05 AM", "course": "TBC406", "location": "LT4"},
+              {"time": "11:05 AM - 12:00 PM", "course": "TBC402", "location": "LT4"}
+            ],
+            "Friday": [
+              {"time": "8:00 AM - 8:55 AM", "course": "TBC401", "location": "LT8"},
+              {"time": "8:55 AM - 9:50 AM", "course": "LIB", "location": "Library"},
+              {"time": "10:10 AM - 11:05 AM", "course": "DCN LAB", "location": "Param GF"}
+            ],
+            "Saturday": [
+              {"time": "8:00 AM - 8:55 AM", "course": "DAA LAB", "location": "Param GF"},
+              {"time": "8:55 AM - 9:50 AM", "course": "TBC402", "location": "LT3"},
+              {"time": "10:10 AM - 11:05 AM", "course": "TBC403", "location": "LT3"}
+            ]
+          }
+        }
+      }
+    }
+  }
