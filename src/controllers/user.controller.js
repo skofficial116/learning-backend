@@ -24,20 +24,20 @@ const generateAccessAndRefreshToken = async (userId) => {
 };
 
 const registerUser = asyncHandler(async (req, res) => {
-  const { email, username, password, fullName } = req.body;
+  const {  username, password, fullName } = req.body;
 
   // Validation for required fields
-  if (!email) throw new ApiError(400, "Email is required!");
+  // if (!email) throw new ApiError(400, "Email is required!");
   if (!username) throw new ApiError(400, "Username is required!");
   if (!password) throw new ApiError(400, "Password is required!");
   if (!fullName) throw new ApiError(400, "Full Name is required!");
 
   // Check for existing user
-  const existingUser = await User.findOne({ $or: [{ email }, { username }] });
+  const existingUser = await User.findOne({ username });
   if (existingUser) {
     throw new ApiError(
       409,
-      "User with the given email or username already exists!"
+      "User with the given username already exists!"
     );
   }
 
@@ -48,7 +48,6 @@ const registerUser = asyncHandler(async (req, res) => {
     // avatar: avatar.url,
     // coverImage: cover?.url || "",
     password,
-    email,
   });
 
   // Remove sensitive data before sending response
@@ -66,25 +65,21 @@ const registerUser = asyncHandler(async (req, res) => {
 });
 
 const loginUser = asyncHandler(async (req, res) => {
-  //ask email/username and pasword
-  // check if usrnmae/email exists
-  //check for password
-  const { username, email, password } = req.body;
-  if (!username || !email) {
-    throw new ApiError(400, "email/username is required!");
+  
+  const { username, password } = req.body;
+  if (!username ) {
+    throw new ApiError(400, "username is required!");
   }
 
-  const user = await User.findOne({
-    $or: [{ username }, { email }],
-  });
+  const user = await User.findOne({ username });
 
   if (!user) {
-    throw new ApiError(404, " username/email does not exist. Kindly register.");
+    throw new ApiError(404, " username does not exist. Kindly register.");
   }
 
   const passwordCheck = await user.isPasswordCorrect(password);
 
-  if (!password) {
+  if (!passwordCheck) {
     throw new ApiError(404, "Invalid User Credentials");
   }
 
@@ -192,3 +187,4 @@ const accessRefreshToken = asyncHandler(async (res, req) => {
 });
 
 export { registerUser, loginUser, logoutUser, accessRefreshToken };
+
