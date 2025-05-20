@@ -1,4 +1,4 @@
-export const timetable = {
+export const timetableData = {
   BCA: {
     4: {
       A: {

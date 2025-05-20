@@ -16,6 +16,9 @@ app.use(express.static("public"))
 import userRouter from "./routes/user.routes.js";
 app.use("/users", userRouter)
 
+import timetableRouter from "./routes/timetable.routes.js";
+app.use("/timetable", timetableRouter)
+
 
 
 export { app };

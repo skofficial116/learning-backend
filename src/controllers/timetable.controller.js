@@ -2,6 +2,7 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 import { ApiError } from "../utils/ApiError.js";
 import { User } from "../models/users.models.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
+import { timetableData } from "./timetable.js";
 
 const getStudentTimeTable = asyncHandler(async (req, res) => {
   
@@ -20,22 +21,16 @@ const getStudentTimeTable = asyncHandler(async (req, res) => {
 
   const passwordCheck = await user.isPasswordCorrect(password);
 
-  if (!password) {
+  if (!passwordCheck) {
     throw new ApiError(404, "Invalid User Credentials");
   }
 
-  const { accessToken, refreshToken } = await generateAccessAndRefreshToken(
-    user._id
-  );
+ 
 
   const loggedUser = await User.findById(user._id).select(
-    "-password -refreshToken"
+    "-password"
   );
 
-  const options = {
-    htttpOnly: true,
-    secure: true,
-  };
 
   return res
     .status(200)
@@ -51,15 +46,21 @@ const getStudentTimeTable = asyncHandler(async (req, res) => {
 });
 
 
-/**
- * Find all occupied classrooms at a specific time and day, including details about the occupying class.
- * @param {Object} timetableData - The complete timetable data structure
- * @param {string} day - The day of the week (Monday, Tuesday, etc.)
- * @param {string} time - The time in format "HH:MM AM/PM" (e.g. "10:10 AM")
- * @returns {Object} - Contains occupied rooms with details about the occupying classes
- */
+// /**
+//  * Find all occupied classrooms at a specific time and day, including details about the occupying class.
+//  * @param {Object} timetableData - The complete timetable data structure
+//  * @param {string} day - The day of the week (Monday, Tuesday, etc.)
+//  * @param {string} time - The time in format "HH:MM AM/PM" (e.g. "10:10 AM")
+//  * @returns {Object} - Contains occupied rooms with details about the occupying classes
+//  */
 const findOccupiedClassrooms = asyncHandler(async(req,res)=> {
-  const { timetableData, day, time} = req.body;
+  let { day, time} = req.body;
+  if(!day){
+    throw new ApiError(400, "day is required!");
+  }
+  if(!time){
+    throw new ApiError(400, "time is required!");
+  }
   // Normalize day input (capitalize first letter)
   day = day.charAt(0).toUpperCase() + day.slice(1).toLowerCase();
   
@@ -280,15 +281,22 @@ const findOccupiedClassrooms = asyncHandler(async(req,res)=> {
 }
 )
 
-/**
- * Find all empty classrooms at a specific time and day.
- * @param {Object} timetableData - The complete timetable data structure
- * @param {string} day - The day of the week (Monday, Tuesday, etc.)
- * @param {string} time - The time in format "HH:MM AM/PM" (e.g. "10:10 AM")
- * @returns {Array} - List of all empty classrooms
- */
+// /**
+//  * Find all empty classrooms at a specific time and day.
+//  * @param {Object} timetableData - The complete timetable data structure
+//  * @param {string} day - The day of the week (Monday, Tuesday, etc.)
+//  * @param {string} time - The time in format "HH:MM AM/PM" (e.g. "10:10 AM")
+//  * @returns {Array} - List of all empty classrooms
+//  */
 const findEmptyClassrooms = asyncHandler(async(req,res)=> {
   // Normalize day input (capitalize first letter)
+  let { day, time} = req.body;
+  if(!day){
+    throw new ApiError(400, "day is required!");
+  }
+  if(!time){
+    throw new ApiError(400, "time is required!");
+  }
   day = day.charAt(0).toUpperCase() + day.slice(1).toLowerCase();
   
   // List of all possible classrooms
@@ -454,3 +462,6 @@ const findEmptyClassrooms = asyncHandler(async(req,res)=> {
 }
 )
 
+
+
+export {findEmptyClassrooms, findOccupiedClassrooms}

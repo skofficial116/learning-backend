@@ -45,8 +45,6 @@ const registerUser = asyncHandler(async (req, res) => {
   const user = await User.create({
     username: username.toLowerCase(),
     fullName,
-    // avatar: avatar.url,
-    // coverImage: cover?.url || "",
     password,
   });
 
@@ -74,7 +72,7 @@ const loginUser = asyncHandler(async (req, res) => {
   const user = await User.findOne({ username });
 
   if (!user) {
-    throw new ApiError(404, " username does not exist. Kindly register.");
+    throw new ApiError(404, "Username does not exist. Kindly register.");
   }
 
   const passwordCheck = await user.isPasswordCorrect(password);
@@ -83,34 +81,25 @@ const loginUser = asyncHandler(async (req, res) => {
     throw new ApiError(404, "Invalid User Credentials");
   }
 
-  const { accessToken, refreshToken } = await generateAccessAndRefreshToken(
-    user._id
-  );
-
   const loggedUser = await User.findById(user._id).select(
-    "-password -refreshToken"
+    "-password"
   );
 
-  const options = {
-    htttpOnly: true,
-    secure: true,
-  };
-
+  
+  
   return res
-    .status(200)
-    .cookie("accessToken", accessToken, options)
-    .cookie("refreshToken", refreshToken, options)
-    .json(
-      new ApiResponse(
-        200,
-        {
-          user: loggedUser,
-          accessToken,
-          refreshToken,
-        },
-        "User logged in Successfully"
-      )
-    );
+  .status(200)
+  .json(
+    new ApiResponse(
+      200,
+      {
+        user: loggedUser,
+      },
+      "User logged in Successfully"
+    )
+  );
+
+
 });
 
 const logoutUser = asyncHandler(async (res, req) => {
